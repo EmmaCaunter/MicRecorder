@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private String [] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
 
-    private static Integer[] SAMPLE_RATES = { 44100, 44800, 88200, 96000 };
+    private static Integer[] SAMPLE_RATES = { 44100, 48000, 88200, 96000 };
     private static String LOG_TAG = "Mic Recorder";
 
     private int currentSampleRate;
