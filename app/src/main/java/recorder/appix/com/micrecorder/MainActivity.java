@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
@@ -34,12 +35,18 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isRecording;
     private ImageButton playButton;
+    public TextView tvBand1;
+    public TextView tvBand2;
+    public TextView tvBand3;
+    public TextView tvBand4;
+    public TextView tvBand5;
 
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
 
     private static Integer[] SAMPLE_RATES = { 44100, 48000, 88200, 96000 };
+    private static int coeflen = 9;
     private static String LOG_TAG = "Mic Recorder";
 
     private int currentSampleRate;
@@ -52,6 +59,18 @@ public class MainActivity extends AppCompatActivity {
         playButton = findViewById(R.id.play_button);
         playButton.setOnClickListener(v -> startRecording());
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
+
+        tvBand1 = (TextView)findViewById(R.id.band1Text);
+        tvBand2 = (TextView)findViewById(R.id.band2Text);
+        tvBand3 = (TextView)findViewById(R.id.band3Text);
+        tvBand4 = (TextView)findViewById(R.id.band4Text);
+        tvBand5 = (TextView)findViewById(R.id.band5Text);
+
+        tvBand1.setText("Band1: not detected");
+        tvBand2.setText("Band2: not detected");
+        tvBand3.setText("Band3: not detected");
+        tvBand4.setText("Band4: not detected");
+        tvBand5.setText("Band5: not detected");
 
         Integer[] availableSampleRates = getAvailableSampleRates();
         findViewById(R.id.stop_button).setOnClickListener(v -> stopRecording());
@@ -174,6 +193,13 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.v(LOG_TAG, "Start recording");
 
+                    String texttodisplay = "Start recording  ";
+                    //setContentView(R.layout.activity_main);
+                    //tvBand1.setText(texttodisplay);
+                    tvBand1.setText("next");
+                    texttodisplay = "Start recording 2";
+                    tvBand1.setText(texttodisplay);
+
                     long shortsRead = 0;
                     while (isRecording) {
                         int numberOfShort = record.read(audioBuffer, 0, audioBuffer.length);
@@ -193,6 +219,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }catch (IOException e) {
                     e.printStackTrace();
+//                    String texttodisplay = "exception caught ";
+//                    tvBand1.setText(texttodisplay);
                 }
 
 
